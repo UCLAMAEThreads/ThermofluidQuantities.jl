@@ -6,7 +6,7 @@ export value, name
 export default_unit
 
 
-abstract type FlowQuantity{U} end
+abstract type FlowQuantity{U} <: Number end
 
 """
     unit(a::FlowQuantity)
@@ -66,6 +66,16 @@ function Base.show(io::IO, m::MIME"text/plain", s::FlowQuantity{U}) where {U}
 end
 
 ####### OPERATIONS ON ALL TYPES #######
+#=
+Some notes on these
+- We do not necessarily wish for an operation on a FlowQuantity
+  to return the same type of FlowQuantity. For example, if
+  we add Pressure and PressureDifference, we should let the user
+  specify what the result should be (by wrapping it in a type explicitly).
+- When carrying out an operation between a FlowQuantity and a Number
+  or a FlowQuantity and a Unitful.Quantity, just let the Unitful
+  rules catch dimensional inconsistencies and throw errors.
+=#
 
 for op in (:(+),:(-),:(>),:(<),:(>=),:(<=),:(==))
     @eval $op(s1::FlowQuantity{U1},s2::FlowQuantity{U2}) where {U1,U2} = $op(s1.val,s2.val)
@@ -92,9 +102,9 @@ for op in (:(*),:(/))
 end
 
 for op in (:(^),)
+    @eval $op(s::FlowQuantity,C::Integer) = $op(s.val,C)
     @eval $op(s::FlowQuantity,C::Real) = $op(s.val,C)
 end
-
 
 
 """
