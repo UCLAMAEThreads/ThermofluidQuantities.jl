@@ -1,8 +1,12 @@
 # Macros for creating units and quantities
 import Base:+,*,-,/,^,>,<,>=,<=,==,isapprox
+import Base: exp, exp10, exp2, expm1, log, log10, log1p, log2
+import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh,
+             sinpi, cospi, sinc, cosc, cis
+
 import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
 
-export value, name, unit
+export value, name, unit, ustrip
 export default_unit
 export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
 export @displayedunits, @dimvar, @nondimvar, @gas, @liquid
@@ -109,6 +113,15 @@ end
 for op in (:(^),)
     @eval $op(s::PhysicalQuantity,C::Integer) = $op(s.val,C)
     @eval $op(s::PhysicalQuantity,C::Real) = $op(s.val,C)
+end
+
+for op in (:sin, :cos, :tan, :asin, :acos, :atan, :sinh, :cosh, :tanh, :asinh,
+           :acosh, :atanh,:sinpi, :cospi, :sinc, :cosc, :cis)
+    @eval ($op)(s::DimensionlessPhysicalQuantity) = ($op)(s.val)
+end
+
+for op in (:exp, :exp10, :exp2, :expm1, :log, :log10, :log1p, :log2)
+    @eval ($op)(s::DimensionlessPhysicalQuantity) = ($op)(s.val)
 end
 
 
