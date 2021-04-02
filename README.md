@@ -98,5 +98,29 @@ Then you can create a quantity:
 MyInverseVelocityVar(2.3u"ft/min")
 ```
 
+### Gases and liquids
+
+There are several predefined properties for gases and liquids. You can see the lists here:
+
+```julia
+Thermofluids.gases
+```
+
+and
+
+```julia
+Thermofluids.liquids
+```
+
+For example, to see the properties of air,
+```julia
+Air
+```
+
+You can access any of the properties individually with, e.g.,
+```julia
+Viscosity(Air)
+SpecificHeatRatio(Air)
+```
 
 
