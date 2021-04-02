@@ -95,7 +95,7 @@ Then you can create a quantity:
 
 ```julia
 @dimvar MyInverseVelocityVar MyInverseVelocityType
-MyInverseVelocityVar(8u"minute/mile")
+MyInverseVelocityVar(8u"minute/mi")
 ```
 
 ### Gases and liquids
@@ -103,13 +103,13 @@ MyInverseVelocityVar(8u"minute/mile")
 There are several predefined properties for gases and liquids. You can see the lists here:
 
 ```julia
-Thermofluids.gases
+ThermofluidQuantities.gases
 ```
 
 and
 
 ```julia
-Thermofluids.liquids
+ThermofluidQuantities.liquids
 ```
 
 For example, to see the properties of air,
