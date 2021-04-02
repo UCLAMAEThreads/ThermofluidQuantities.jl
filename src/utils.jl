@@ -5,7 +5,7 @@ import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
 export value, name
 export default_unit
 export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
-
+export @displayedunits, @dimvar, @nondimvar, @gas, @liquid
 
 abstract type PhysicalQuantity{U} <: Number end
 
@@ -111,29 +111,66 @@ for op in (:(^),)
     @eval $op(s::PhysicalQuantity,C::Real) = $op(s.val,C)
 end
 
+
 """
-    @displayedunits(qty,a)
+    @displayedunits name unit dims
 
 Set the preferred units for displaying quantities and
 create function `displayedunits` for returning these units and
-`ushow` for converting quantities into these units.
+`ushow` for converting quantities into these units. The new unit type
+is specified with `name`, the default units with `unit`, and the
+dimensions with `dims`. The latter use the `Unitful` dimension names, `𝐌`,
+`𝐓`, `𝐋`, `𝚯`, in combinations
+
+# Examples
+```jldoctest myunit
+julia> import ThermofluidQuantities: 𝐌, 𝐓
+
+julia> @displayedunits MyVelocityType "m/s" 𝐌/𝐓
+
+julia> MyVelocityType
+Union{Unitful.Quantity{T,𝐌 𝐓⁻¹,U}, Unitful.Level{L,S,Unitful.Quantity{T,𝐌 𝐓⁻¹,U}} where S where L} where U where T
+```
 """
 macro displayedunits(qty,a,dims)
   utype = isdefined(Unitful, qty) ? getfield(Unitful,qty) : qty
+  strqty = string(qty)
   esc(quote
-      @derived_dimension($qty,$dims)
+      ThermofluidQuantities.Unitful.@derived_dimension($qty,$dims)
 
       displayedunits(::Type{$utype}) = @u_str($a)
 
       ushow(x::$utype) = uconvert(@u_str($a),x)
 
+      push!(ThermofluidQuantities.unittypes,Symbol($strqty))
+
+      nothing
+
       end)
 end
 
+"""
+    @dimvar name utype
+
+Define a dimensional variable type of the given name, with units of type `utype`.
+The `utype` is of the form created with the @displayedunits macro. A list
+of such types can be found in `ThermofluidQuantities.unittypes`.
+
+# Examples
+```jldoctest mydimvar
+julia> import ThermofluidQuantities: 𝐓
+
+julia> @displayedunits MyTimeType "s" 𝐓
+
+julia> @dimvar MyTimeVar MyTimeType
+
+julia> MyTimeVar(5)
+MyTimeVar = 5.0 s
+```
+"""
 macro dimvar(qty,utype)
   strqty = string(qty)
   esc(quote
-          export $qty
 
           struct $qty{U<:$utype} <: DimensionalPhysicalQuantity{U}
             val :: U
@@ -155,7 +192,10 @@ macro dimvar(qty,utype)
           """ $qty(x::U) where {U<:$utype} = $qty(ushow(x),$strqty)
           default_unit(::Type{$qty}) = displayedunits($utype)
 
-          push!(dimvartypes,$qty)
+          push!(ThermofluidQuantities.dimvartypes,$qty)
+
+          export $qty
+
 
       end)
 end
@@ -168,6 +208,9 @@ Define a non-dimensional variable type of the given name.
 # Examples
 ```jldoctest mynondimvar
 julia> @nondimvar MyNondimVar
+
+julia> MyNondimVar(100)
+MyNondimVar = 100.0
 ```
 """
 macro nondimvar(qty)
@@ -192,15 +235,38 @@ macro nondimvar(qty)
           Create an instance of a $($strqty) type non-dimensional physical quantity,
           with unit-ed value equal to `x`.
           """
-          $qty(x::Unitful.Quantity{T,Unitful.NoDims}) where {T} = $qty(uconvert.(Unitful.NoUnits,x))
+          $qty(x::ThermofluidQuantities.Unitful.Quantity{T,ThermofluidQuantities.Unitful.NoDims}) where {T} = $qty(uconvert.(Unitful.NoUnits,x))
 
-          push!(nondimvartypes,$qty)
+          push!(ThermofluidQuantities.nondimvartypes,$qty)
 
           export $qty
 
       end)
 end
 
+"""
+    @liquid name temp dens visc surftens pv Ev
+
+Create a liquid of the specified name, with viscosity `visc`, surface tension `surftens`,
+vapor pressure `pv`, and bulk modulus `Ev` at reference temperature `temp`. Each of these must
+be provided with units if they are not the default.
+
+# Example
+```jldoctest myliq
+julia> @liquid MyWater 15u"°C" 999 1.13e-3 7.34e-2 1.77e3 2.15e9
+
+julia> MyWater
+Liquid with
+   Density = 999.0 kg m⁻³
+   Viscosity = 0.00113 kg m⁻¹ s⁻¹
+   Kinematic viscosity = 1.131131131131131e-6 m² s⁻¹
+   Specific weight = 9796.84335 N m⁻³
+   Surface tension = 0.0734 N m⁻¹
+   Bulk modulus = 2.15e9 Pa
+   Vapor pressure = 1770.0 Pa
+   at reference temp 288.15 K
+```
+"""
 macro liquid(name,temp,density,viscosity,surftens,pv,Ev)
     strname = string(name)
     esc(quote
@@ -212,19 +278,45 @@ macro liquid(name,temp,density,viscosity,surftens,pv,Ev)
                                  Ev = BulkModulus($Ev))
             export $name
 
-            push!(liquids,Symbol($strname))
+            push!(ThermofluidQuantities.liquids,Symbol($strname))
+
+            nothing
         end)
 end
 
+"""
+    @gas name temp visc gamma mmass
+
+Create a gas of the specified name, with viscosity `visc` and ratio of specific heats
+`gamma` at reference temperature `temp`, and molar mass `mmass`. Each of these must
+be provided with units if they are not the default.
+
+# Example
+```jldoctest mygas
+julia> @gas MyO2 20u"°C" 2.04e-5 1.395 31.999u"g/mol"
+
+julia> MyO2
+Perfect gas with
+   Density = 1.330236729981785 kg m⁻³
+   Viscosity = 2.04e-5 kg m⁻¹ s⁻¹
+   Specific heat ratio = 1.395
+   Gas constant = 259.83507666343445 J kg⁻¹ K⁻¹
+   cp = 917.645397330357 J kg⁻¹ K⁻¹
+   cv = 657.8103206669226 J kg⁻¹ K⁻¹
+   at reference temp 293.15 K
+```
+"""
 macro gas(name,temp,viscosity,gamma,molarmass)
     strname = string(name)
     esc(quote
             const $name = PerfectGas(Tref = Temperature($temp),
                                      μ = Viscosity($viscosity),
                                      γ = SpecificHeatRatio($gamma),
-                                     R = GasConstant(Unitful.R/$molarmass))
+                                     R = GasConstant(ThermofluidQuantities.Unitful.R/$molarmass))
             export $name
 
-            push!(gases,Symbol($strname))
+            push!(ThermofluidQuantities.gases,Symbol($strname))
+
+            nothing
         end)
 end

@@ -8,6 +8,7 @@ module ThermofluidQuantities
 
   const dimvartypes = Vector{Type}()
   const nondimvartypes = Vector{Type}()
+  const unittypes = Vector{Symbol}()
 
 
   include("units.jl")
