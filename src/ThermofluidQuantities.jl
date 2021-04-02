@@ -6,6 +6,10 @@ module ThermofluidQuantities
   using Unitful: @unit, @u_str, Quantity, @derived_dimension, uconvert
   export @u_str
 
+  const dimvartypes = Vector{Type}()
+  const nondimvartypes = Vector{Type}()
+
+
   include("units.jl")
   include("utils.jl")
   include("quantities.jl")

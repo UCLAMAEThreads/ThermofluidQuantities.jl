@@ -4,6 +4,7 @@ import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
 
 export value, name
 export default_unit
+export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
 
 
 abstract type PhysicalQuantity{U} <: Number end
@@ -129,7 +130,7 @@ macro displayedunits(qty,a,dims)
       end)
 end
 
-macro create_dimvar(qty,utype)
+macro dimvar(qty,utype)
   strqty = string(qty)
   esc(quote
           export $qty
@@ -138,28 +139,70 @@ macro create_dimvar(qty,utype)
             val :: U
             name :: String
           end
-          $qty(x::U) where {U<:$utype} = $qty(ushow(x),$strqty)
-          $qty(x::Real) = $qty(x*displayedunits($utype),$strqty)
+
+          @doc """
+              $($strqty)(x::Real)
+
+          Create an instance of a $($strqty) type dimensional physical quantity,
+          with value equal to `x` and units $(displayedunits($utype)).
+          """ $qty(x::Real) = $qty(x*displayedunits($utype),$strqty)
+
+          @doc """
+              $($strqty)(x::Unitful.Quantity)
+
+          Create an instance of a $($strqty) type dimensional physical quantity,
+          with unit-ed value equal to `x`. Converts to units $(displayedunits($utype)).
+          """ $qty(x::U) where {U<:$utype} = $qty(ushow(x),$strqty)
           default_unit(::Type{$qty}) = displayedunits($utype)
+
+          push!(dimvartypes,$qty)
 
       end)
 end
 
-macro create_nondimvar(qty)
+"""
+    @nondimvar name
+
+Define a non-dimensional variable type of the given name.
+
+# Examples
+```jldoctest mynondimvar
+julia> @nondimvar MyNondimVar
+```
+"""
+macro nondimvar(qty)
   strqty = string(qty)
   esc(quote
+
           struct $qty{U<:Real} <: DimensionlessPhysicalQuantity{U}
             val :: U
             name :: String
           end
-          $qty(x::Real) = $qty(x,$strqty)
+
+          @doc """
+              $($strqty)(x::Real)
+
+          Create an instance of a $($strqty) type non-dimensional physical quantity,
+          with value equal to `x`.
+          """ $qty(x::Real) = $qty(x,$strqty)
+
+          @doc """
+              $($strqty)(x::Unitful.Quantity)
+
+          Create an instance of a $($strqty) type non-dimensional physical quantity,
+          with unit-ed value equal to `x`.
+          """
           $qty(x::Unitful.Quantity{T,Unitful.NoDims}) where {T} = $qty(uconvert.(Unitful.NoUnits,x))
 
+          push!(nondimvartypes,$qty)
+
           export $qty
+
       end)
 end
 
-macro create_liquid(name,temp,density,viscosity,surftens,pv,Ev)
+macro liquid(name,temp,density,viscosity,surftens,pv,Ev)
+    strname = string(name)
     esc(quote
             const $name = Liquid(Tref = Temperature($temp),
                                  ρref = Density($density),
@@ -168,15 +211,20 @@ macro create_liquid(name,temp,density,viscosity,surftens,pv,Ev)
                                  pv = VaporPressure($pv),
                                  Ev = BulkModulus($Ev))
             export $name
+
+            push!(liquids,Symbol($strname))
         end)
 end
 
-macro create_gas(name,temp,viscosity,gamma,molarmass)
+macro gas(name,temp,viscosity,gamma,molarmass)
+    strname = string(name)
     esc(quote
             const $name = PerfectGas(Tref = Temperature($temp),
                                      μ = Viscosity($viscosity),
                                      γ = SpecificHeatRatio($gamma),
                                      R = GasConstant(Unitful.R/$molarmass))
             export $name
+
+            push!(gases,Symbol($strname))
         end)
 end

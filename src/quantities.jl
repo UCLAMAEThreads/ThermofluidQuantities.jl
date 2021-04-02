@@ -32,76 +32,76 @@ Quantities and properties
 Note: to add a new quantity, you define it here, assigning the units from
 the list above of QtyType
 =#
-@create_dimvar SpecificHeatPressure   SpecificHeatType
-@create_dimvar SpecificHeatVolume     SpecificHeatType
-@create_dimvar GasConstant            SpecificHeatType
-@create_dimvar Viscosity              ViscosityType
-@create_dimvar KinematicViscosity     KinematicViscosityType
-@create_dimvar SurfaceTension         ForcePerLengthType
-@create_dimvar SpecificWeight         SpecificWeightType
-@create_dimvar VaporPressure          PressureType
-@create_dimvar BulkModulus            PressureType
+@dimvar SpecificHeatPressure   SpecificHeatType
+@dimvar SpecificHeatVolume     SpecificHeatType
+@dimvar GasConstant            SpecificHeatType
+@dimvar Viscosity              ViscosityType
+@dimvar KinematicViscosity     KinematicViscosityType
+@dimvar SurfaceTension         ForcePerLengthType
+@dimvar SpecificWeight         SpecificWeightType
+@dimvar VaporPressure          PressureType
+@dimvar BulkModulus            PressureType
 
-@create_nondimvar SpecificHeatRatio
-@create_nondimvar SpecificGravity
+@nondimvar SpecificHeatRatio
+@nondimvar SpecificGravity
 
 
 # Dimensional variables
-@create_dimvar Pressure               PressureType
-@create_dimvar PressureDifference     PressureType
-@create_dimvar GaugePressure          PressureType
-@create_dimvar StagnationPressure     PressureType
-@create_dimvar Density                DensityType
-@create_dimvar StagnationDensity      DensityType
-@create_dimvar Temperature            TemperatureType
-@create_dimvar StagnationTemperature  TemperatureType
-@create_dimvar InternalEnergy         SpecificEnergyType
-@create_dimvar StagnationInternalEnergy SpecificEnergyType
-@create_dimvar Enthalpy               SpecificEnergyType
-@create_dimvar StagnationEnthalpy     SpecificEnergyType
-@create_dimvar SoundSpeed             VelocityType
-@create_dimvar StagnationSoundSpeed   VelocityType
-@create_dimvar Velocity               VelocityType
-@create_dimvar UVelocity              VelocityType
-@create_dimvar VVelocity              VelocityType
-@create_dimvar WVelocity              VelocityType
-@create_dimvar AngularVelocity        AngularVelocityType
-@create_dimvar Acceleration           AccelerationType
-@create_dimvar Gravity                AccelerationType
-@create_dimvar Entropy                SpecificHeatType
-@create_dimvar MassFlowRate           MassFlowRateType
-@create_dimvar HeatFlux               SpecificEnergyType
-@create_dimvar VolumeFlowRate         FlowRateType
-@create_dimvar Force                  ForceType
-@create_dimvar ForcePerDepth          ForcePerLengthType
-@create_dimvar Time                   TimeType
-@create_dimvar Head                   LengthType
+@dimvar Pressure               PressureType
+@dimvar PressureDifference     PressureType
+@dimvar GaugePressure          PressureType
+@dimvar StagnationPressure     PressureType
+@dimvar Density                DensityType
+@dimvar StagnationDensity      DensityType
+@dimvar Temperature            TemperatureType
+@dimvar StagnationTemperature  TemperatureType
+@dimvar InternalEnergy         SpecificEnergyType
+@dimvar StagnationInternalEnergy SpecificEnergyType
+@dimvar Enthalpy               SpecificEnergyType
+@dimvar StagnationEnthalpy     SpecificEnergyType
+@dimvar SoundSpeed             VelocityType
+@dimvar StagnationSoundSpeed   VelocityType
+@dimvar Velocity               VelocityType
+@dimvar UVelocity              VelocityType
+@dimvar VVelocity              VelocityType
+@dimvar WVelocity              VelocityType
+@dimvar AngularVelocity        AngularVelocityType
+@dimvar Acceleration           AccelerationType
+@dimvar Gravity                AccelerationType
+@dimvar Entropy                SpecificHeatType
+@dimvar MassFlowRate           MassFlowRateType
+@dimvar HeatFlux               SpecificEnergyType
+@dimvar VolumeFlowRate         FlowRateType
+@dimvar Force                  ForceType
+@dimvar ForcePerDepth          ForcePerLengthType
+@dimvar Time                   TimeType
+@dimvar Head                   LengthType
 
 
-@create_dimvar Area                   AreaType
-@create_dimvar Diameter               LengthType
-@create_dimvar Length                 LengthType
-@create_dimvar Volume                 VolumeType
+@dimvar Area                   AreaType
+@dimvar Diameter               LengthType
+@dimvar Length                 LengthType
+@dimvar Volume                 VolumeType
 
 
 # Non-dimensional variables
-@create_nondimvar MachNumber
-@create_nondimvar ReynoldsNumber
-@create_nondimvar DragCoefficient
-@create_nondimvar LiftCoefficient
-@create_nondimvar PressureCoefficient
-@create_nondimvar FrictionFactor
+@nondimvar MachNumber
+@nondimvar ReynoldsNumber
+@nondimvar DragCoefficient
+@nondimvar LiftCoefficient
+@nondimvar PressureCoefficient
+@nondimvar FrictionFactor
 
 # a generic catchall
-@create_nondimvar DimensionlessParameter
+@nondimvar DimensionlessParameter
 
-@create_nondimvar FLOverD
-@create_nondimvar PressureRatio
-@create_nondimvar StagnationPressureRatio
-@create_nondimvar TemperatureRatio
-@create_nondimvar DensityRatio
-@create_nondimvar VelocityRatio
-@create_nondimvar AreaRatio
+@nondimvar FLOverD
+@nondimvar PressureRatio
+@nondimvar StagnationPressureRatio
+@nondimvar TemperatureRatio
+@nondimvar DensityRatio
+@nondimvar VelocityRatio
+@nondimvar AreaRatio
 
 
 #=
