@@ -6,10 +6,10 @@ import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, at
 
 import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
 
-export value, name, unit, ustrip
+export value, name, unit, ustrip, ushow
 export default_unit
 export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
-export @displayedunits, @dimvar, @nondimvar, @gas, @liquid
+export @displayedunits, @dimvar, @nondimvar, @gas, @liquid, displayedunits
 
 abstract type PhysicalQuantity{U} <: Number end
 
@@ -125,6 +125,10 @@ for op in (:exp, :exp10, :exp2, :expm1, :log, :log10, :log1p, :log2)
 end
 
 
+function displayedunits() end
+function ushow() end
+
+
 """
     @displayedunits name unit dims
 
@@ -151,11 +155,13 @@ macro displayedunits(qty,a,dims)
   esc(quote
       ThermofluidQuantities.Unitful.@derived_dimension($qty,$dims)
 
-      displayedunits(::Type{$utype}) = @u_str($a)
+      ThermofluidQuantities.displayedunits(::Type{$utype}) = @u_str($a)
 
-      ushow(x::$utype) = uconvert(@u_str($a),x)
+      ThermofluidQuantities. ushow(x::$utype) = uconvert(@u_str($a),x)
 
       push!(ThermofluidQuantities.unittypes,Symbol($strqty))
+
+      export $qty
 
       nothing
 
