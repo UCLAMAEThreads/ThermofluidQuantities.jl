@@ -44,6 +44,8 @@ end
   @test sinh(ReynoldsNumber(5)) == sinh(5)
   @test log(ReynoldsNumber(5)) == log(Velocity(5)*Length(4)/KinematicViscosity(4))
 
+  @test_throws MethodError sin(Velocity(5))
+
 
 
 
