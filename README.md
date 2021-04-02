@@ -95,7 +95,7 @@ Then you can create a quantity:
 
 ```julia
 @dimvar MyInverseVelocityVar MyInverseVelocityType
-MyInverseVelocityVar(2.3u"ft/min")
+MyInverseVelocityVar(8u"minute/mile")
 ```
 
 ### Gases and liquids
