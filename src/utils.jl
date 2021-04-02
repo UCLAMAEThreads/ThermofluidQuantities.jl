@@ -1,15 +1,4 @@
 # Macros for creating units and quantities
-import Base:+,*,-,/,^,>,<,>=,<=,==,isapprox
-import Base: exp, exp10, exp2, expm1, log, log10, log1p, log2
-import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh,
-             sinpi, cospi, sinc, cosc, cis
-
-import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
-
-export value, name, unit, ustrip, ushow
-export default_unit
-export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
-export @displayedunits, @dimvar, @nondimvar, @gas, @liquid, displayedunits
 
 abstract type PhysicalQuantity{U} <: Number end
 
@@ -157,7 +146,7 @@ macro displayedunits(qty,a,dims)
 
       ThermofluidQuantities.displayedunits(::Type{$utype}) = @u_str($a)
 
-      ThermofluidQuantities. ushow(x::$utype) = uconvert(@u_str($a),x)
+      ThermofluidQuantities.ushow(x::$utype) = uconvert(@u_str($a),x)
 
       push!(ThermofluidQuantities.unittypes,Symbol($strqty))
 

@@ -1,10 +1,20 @@
 module ThermofluidQuantities
 
+import Base:+,*,-,/,^,>,<,>=,<=,==,isapprox
+import Base: exp, exp10, exp2, expm1, log, log10, log1p, log2
+import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh,
+             sinpi, cospi, sinc, cosc, cis
 
   # This form is necessary to add new units
   import Unitful
   using Unitful: @unit, @u_str, Quantity, @derived_dimension, uconvert
+  import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
+
   export @u_str
+  export value, name, unit, ustrip, ushow, uconvert
+  export default_unit
+  export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
+  export @displayedunits, @dimvar, @nondimvar, @gas, @liquid, displayedunits
 
   const dimvartypes = Vector{Type}()
   const nondimvartypes = Vector{Type}()
