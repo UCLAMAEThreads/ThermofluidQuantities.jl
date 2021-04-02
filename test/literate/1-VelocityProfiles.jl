@@ -16,7 +16,7 @@ often called **Couette flow**. This type of flow is generated, for example, betw
 two parallel walls when one wall is moving and the other is stationary. In the figure
 below, the top wall is moving with velocity $U$, the lower wall is stationary:
 
-<img src="https://raw.githubusercontent.com/UCLAMAEThreads/MAE103/master/notebook/Couette.svg" alt="velocity profile" width="300" align="center"/>
+<img src="https://raw.githubusercontent.com/UCLAMAEThreads/MAE103/main/notebook/Couette.svg" alt="velocity profile" width="300" align="center"/>
 
 Because of the **no-slip condition**, the fluid next to each wall moves with it. The
 fluid next to the upper wall moves at velocity $U$, the fluid next to the lower wall

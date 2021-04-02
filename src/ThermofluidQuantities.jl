@@ -16,6 +16,8 @@ module ThermofluidQuantities
   include("quantities.jl")
   include("gases.jl")
   include("liquids.jl")
+  include("gasdefs.jl")
+  include("liquiddefs.jl")
 
   include("plot_recipes.jl")
 

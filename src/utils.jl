@@ -2,7 +2,7 @@
 import Base:+,*,-,/,^,>,<,>=,<=,==,isapprox
 import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
 
-export value, name
+export value, name, unit
 export default_unit
 export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
 export @displayedunits, @dimvar, @nondimvar, @gas, @liquid
@@ -124,12 +124,12 @@ dimensions with `dims`. The latter use the `Unitful` dimension names, `𝐌`,
 
 # Examples
 ```jldoctest myunit
-julia> import ThermofluidQuantities: 𝐌, 𝐓
+julia> import ThermofluidQuantities: 𝐋, 𝐓
 
-julia> @displayedunits MyVelocityType "m/s" 𝐌/𝐓
+julia> @displayedunits MyVelocityType "m/s" 𝐋/𝐓
 
 julia> MyVelocityType
-Union{Unitful.Quantity{T,𝐌 𝐓⁻¹,U}, Unitful.Level{L,S,Unitful.Quantity{T,𝐌 𝐓⁻¹,U}} where S where L} where U where T
+Union{Unitful.Quantity{T,𝐋 𝐓⁻¹,U}, Unitful.Level{L,S,Unitful.Quantity{T,𝐋 𝐓⁻¹,U}} where S where L} where U where T
 ```
 """
 macro displayedunits(qty,a,dims)
