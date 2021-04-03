@@ -13,6 +13,8 @@ The purpose of this package is to enable easy setup of quantities in thermofluid
 - Predefined properties for various common gases and liquids
 - Plot recipes for the associated types
 
+
+
 ### Setting a quantity's value
 
 We can set the value of a quantity through a simple interface, specifying in units with the [Unitful](https://github.com/PainterQubits/Unitful.jl)
@@ -38,6 +40,13 @@ The result of this operation is just a [Unitful](https://github.com/PainterQubit
 Pressure(p)
 ```
 
+All quantities in this package are typed and are subtypes of either `DimensionalPhysicalQuantity` or `DimensionlessPhysicalQuantity`. These are
+both subtypes of `PhysicalQuantity`.
+
+```julia
+Pressure <: DimensionalPhysicalQuantity
+```
+
 Quantities with the same units but different names are of different types, so dispatch can distinguish them:
 
 ```julia
@@ -50,6 +59,18 @@ but this would fail:
 ```julia
 f(StagnationPressure(2.5))
 ```
+
+### Non-dimensional variables automatically reconcile different units
+
+If we supply a ratio of quantities that are dimensionally compatible but are in disparate units, any non-dimensional variable will
+automatically convert to common units in performing the ratio and provide a truly dimensionless number, e.g.,
+
+```julia
+ReynoldsNumber(5u"ft/s"*1u"cm"/KinematicViscosity(0.1))
+```
+
+In this example, `KinematicViscosity(0.1)` assumes the given value is in default units (m^2/s). Note that we also demonstrated in this example
+that operations with a `PhysicalQuantity` can be mixed with `Unitful.Quantity` types.
 
 ### Defining new quantities
 
