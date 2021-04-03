@@ -243,7 +243,7 @@ macro nondimvar(qty)
           Create an instance of a $($strqty) type non-dimensional physical quantity,
           with unit-ed value equal to `x`.
           """
-          $qty(x::ThermofluidQuantities.Unitful.Quantity{T,ThermofluidQuantities.Unitful.NoDims}) where {T} = $qty(uconvert.(Unitful.NoUnits,x))
+          $qty(x::ThermofluidQuantities.Unitful.Quantity{T,ThermofluidQuantities.Unitful.NoDims}) where {T} = $qty(uconvert.(ThermofluidQuantities.Unitful.NoUnits,x))
 
           push!(ThermofluidQuantities.nondimvartypes,$qty)
 
