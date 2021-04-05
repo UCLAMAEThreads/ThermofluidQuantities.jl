@@ -12,3 +12,4 @@ push!(gases,:Air)
 @gas H2  20u"°C"   8.84e-6   1.405   2.016u"g/mol"
 @gas Methane 20u"°C" 1.10e-5 1.299   16.043u"g/mol"
 @gas N2  20u"°C"   1.76e-5   1.40    28.0134u"g/mol"
+@gas Ar   300u"K"  2.27e-5   5//3    39.948u"g/mol"
