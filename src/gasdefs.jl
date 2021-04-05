@@ -2,7 +2,7 @@ const gases = Vector{Symbol}()
 
 const DefaultPerfectGas = PerfectGas()
 const Air = PerfectGas()
-export Air
+export DefaultPerfectGas, Air
 push!(gases,:Air)
 
 # To add a gas, give it a name, the specific heat ratio, and the molar mass

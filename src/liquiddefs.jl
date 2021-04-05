@@ -2,7 +2,7 @@ const liquids = Vector{Symbol}()
 
 const DefaultLiquid = Liquid()
 const Water = Liquid()
-export Water
+export DefaultLiquid, Water
 push!(liquids,:Water)
 
 @liquid Seawater 15.6u"°C" 1030 1.20e-3  7.34e-2 1.77e3  2.34e9
