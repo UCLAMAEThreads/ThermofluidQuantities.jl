@@ -2,7 +2,7 @@
 
 export AbstractLiquid, Liquid
 
-abstract type AbstractLiquid end
+abstract type AbstractLiquid <: AbstractFluid end
 
 
 # default values

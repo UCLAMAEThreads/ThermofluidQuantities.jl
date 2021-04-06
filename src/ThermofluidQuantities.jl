@@ -14,7 +14,10 @@ import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, at
   export value, name, unit, ustrip, ushow, uconvert
   export default_unit
   export PhysicalQuantity, DimensionalPhysicalQuantity, DimensionlessPhysicalQuantity
+  export AbstractFluid
   export @displayedunits, @dimvar, @nondimvar, @gas, @liquid, displayedunits
+
+  abstract type AbstractFluid end
 
   const dimvartypes = Vector{Type}()
   const nondimvartypes = Vector{Type}()

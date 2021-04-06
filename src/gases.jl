@@ -2,7 +2,7 @@
 
 export AbstractGas, PerfectGas
 
-abstract type AbstractGas end
+abstract type AbstractGas <: AbstractFluid end
 
 # default values
 const DefaultGasRefTemperature = Temperature(15u"°C")
