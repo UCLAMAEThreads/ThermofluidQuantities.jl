@@ -198,7 +198,8 @@ macro dimvar(qty,utype)
           Create an instance of a $($strqty) type dimensional physical quantity,
           with unit-ed value equal to `x`. Converts to units $(displayedunits($utype)).
           """ $qty(x::U) where {U<:$utype} = $qty(ushow(x),$strqty)
-          default_unit(::Type{$qty}) = displayedunits($utype)
+
+          ThermofluidQuantities.default_unit(::Type{$qty}) = displayedunits($utype)
 
           push!(ThermofluidQuantities.dimvartypes,$qty)
 
