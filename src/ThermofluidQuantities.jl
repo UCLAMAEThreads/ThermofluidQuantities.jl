@@ -9,7 +9,6 @@ import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, at
   import Unitful
   using Unitful: @unit, @u_str, Quantity, @derived_dimension, uconvert
   import Unitful: unit, ustrip
-  #import Unitful: 𝐋, 𝐌, 𝚯, 𝐓, unit, ustrip
   using Unitful.DefaultSymbols
 
   export @u_str
