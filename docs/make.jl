@@ -7,7 +7,8 @@ makedocs(
     pages = [
         "Home" => "index.md",
         "Manual" => ["manual/0-UnitsAndQuantities.md",
-                     "manual/1-VelocityProfiles.md"
+                     "manual/1-VelocityProfiles.md",
+                     "manual/functions.md"
                      ]
         #"Internals" => [ "internals/properties.md"]
     ],

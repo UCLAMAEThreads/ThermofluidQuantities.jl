@@ -24,7 +24,8 @@ The third argument is the dimension of the quantity.
 @displayedunits ForcePerLengthType "N/m"    𝐌/𝐓^2
 @displayedunits ForceType          "N"      𝐌*𝐋/𝐓^2
 @displayedunits SpecificWeightType "N/m^3"  𝐌/𝐋^2/𝐓^2
-
+@displayedunits AreaMomentType      "m^4"    𝐋^4
+@displayedunits MomentType          "N*m"    𝐌*𝐋^2/𝐓^2
 
 #=
 Quantities and properties
@@ -74,6 +75,7 @@ the list above of QtyType
 @dimvar VolumeFlowRate         FlowRateType
 @dimvar Force                  ForceType
 @dimvar ForcePerDepth          ForcePerLengthType
+@dimvar Moment                 MomentType
 @dimvar Time                   TimeType
 @dimvar Head                   LengthType
 
@@ -81,6 +83,8 @@ the list above of QtyType
 @dimvar Area                   AreaType
 @dimvar Diameter               LengthType
 @dimvar Length                 LengthType
+@dimvar Height                 LengthType
+@dimvar Depth                  LengthType
 @dimvar Volume                 VolumeType
 
 
@@ -102,13 +106,3 @@ the list above of QtyType
 @nondimvar DensityRatio
 @nondimvar VelocityRatio
 @nondimvar AreaRatio
-
-
-#=
-Geometric relationships
-=#
-Area(D::Diameter) = Area(π*D^2/4)
-Diameter(A::Area) = Diameter(sqrt(4*A/π))
-
-# Earth's gravity
-Gravity() = Gravity(1u"ge")
