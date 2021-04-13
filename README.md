@@ -73,6 +73,15 @@ ReynoldsNumber(5u"ft/s"*1u"cm"/KinematicViscosity(0.1))
 In this example, `KinematicViscosity(0.1)` assumes the given value is in default units (m^2/s). Note that we also demonstrated in this example
 that operations with a `PhysicalQuantity` can be mixed with `Unitful.Quantity` types.
 
+If you don't have a name for a dimensionless parameter, then `DimensionlessParameter` is a catch-all, e.g.,
+
+```julia
+v = Velocity(1u"m/s")
+vref = Velocity(5u"m/s")
+DimensionlessParameter(v/vref)
+```
+
+
 ### Defining new quantities
 
 The list of predefined dimensional quantities is returned with 
