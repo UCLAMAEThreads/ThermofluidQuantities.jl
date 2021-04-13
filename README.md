@@ -2,7 +2,7 @@
 *basic tools and definitions of quantities in thermofluids problems*
 
 
-[![Stable](https://img.shields.io/badge/docs-dev-blue.svg)](https://uclamaethreads.github.io/ThermofluidQuantities.jl/stable/)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://uclamaethreads.github.io/ThermofluidQuantities.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://uclamaethreads.github.io/ThermofluidQuantities.jl/dev/)
  [![Build Status](https://github.com/UCLAMAEThreads/ThermofluidQuantities.jl/workflows/CI/badge.svg)](https://github.com/UCLAMAEThreads/ThermofluidQuantities.jl/actions) [![codecov](https://codecov.io/gh/UCLAMAEThreads/ThermofluidQuantities.jl/branch/main/graph/badge.svg?token=m4pj7rjF0r)](https://codecov.io/gh/UCLAMAEThreads/ThermofluidQuantities.jl)
 
