@@ -181,7 +181,9 @@ macro dimvar(qty,utype)
   strqty = string(qty)
   esc(quote
 
-          struct $qty{U<:$utype} <: DimensionalPhysicalQuantity{U}
+          @doc """
+              $($strqty) <: DimensionalPhysicalQuantity
+          """ struct $qty{U<:$utype} <: DimensionalPhysicalQuantity{U}
             val :: U
             name :: String
           end
@@ -227,7 +229,9 @@ macro nondimvar(qty)
   strqty = string(qty)
   esc(quote
 
-          struct $qty{U<:Real} <: DimensionlessPhysicalQuantity{U}
+          @doc """
+              $($strqty) <: DimensionlessPhysicalQuantity
+          """ struct $qty{U<:Real} <: DimensionlessPhysicalQuantity{U}
             val :: U
             name :: String
           end
