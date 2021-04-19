@@ -2,6 +2,7 @@
 *basic tools and definitions of quantities in thermofluids problems*
 
 
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://uclamaethreads.github.io/ThermofluidQuantities.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://uclamaethreads.github.io/ThermofluidQuantities.jl/dev/)
  [![Build Status](https://github.com/UCLAMAEThreads/ThermofluidQuantities.jl/workflows/CI/badge.svg)](https://github.com/UCLAMAEThreads/ThermofluidQuantities.jl/actions) [![codecov](https://codecov.io/gh/UCLAMAEThreads/ThermofluidQuantities.jl/branch/main/graph/badge.svg?token=m4pj7rjF0r)](https://codecov.io/gh/UCLAMAEThreads/ThermofluidQuantities.jl)
 
@@ -71,6 +72,15 @@ ReynoldsNumber(5u"ft/s"*1u"cm"/KinematicViscosity(0.1))
 
 In this example, `KinematicViscosity(0.1)` assumes the given value is in default units (m^2/s). Note that we also demonstrated in this example
 that operations with a `PhysicalQuantity` can be mixed with `Unitful.Quantity` types.
+
+If you don't have a name for a dimensionless parameter, then `DimensionlessParameter` is a catch-all, e.g.,
+
+```julia
+v = Velocity(1u"m/s")
+vref = Velocity(5u"m/s")
+DimensionlessParameter(v/vref)
+```
+
 
 ### Defining new quantities
 
