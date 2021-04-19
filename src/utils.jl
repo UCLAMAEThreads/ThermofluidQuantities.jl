@@ -75,6 +75,8 @@ Some notes on these
   rules catch dimensional inconsistencies and throw errors.
 =#
 
+(-)(s::PhysicalQuantity) = -s.val
+
 for op in (:(+),:(-),:(>),:(<),:(>=),:(<=),:(==))
     @eval $op(s1::PhysicalQuantity{U1},s2::PhysicalQuantity{U2}) where {U1,U2} = $op(s1.val,s2.val)
     @eval $op(s1::PhysicalQuantity{U1},s2::U2) where {U1,U2<:Quantity} = $op(s1.val,s2)
