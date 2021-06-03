@@ -38,6 +38,8 @@ end
   @test 2/ṁ == 0.4u"s/kg"
   @test ṁ^3 == 125u"kg^3/s^3"
 
+  @test TemperatureRatio(4.0)^(1//2) == 2.0
+
   @test Length(50) > Length(40) > Diameter(5)
   @test_throws Unitful.DimensionError Length(40) > Area(30)
 
