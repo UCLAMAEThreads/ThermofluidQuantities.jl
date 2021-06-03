@@ -104,6 +104,7 @@ end
 for op in (:(^),)
     @eval $op(s::PhysicalQuantity,C::Integer) = $op(s.val,C)
     @eval $op(s::PhysicalQuantity,C::Real) = $op(s.val,C)
+    @eval $op(s::PhysicalQuantity,C::Rational) = $op(s.val,C)
 end
 
 for op in (:sin, :cos, :tan, :asin, :acos, :atan, :sinh, :cosh, :tanh, :asinh,

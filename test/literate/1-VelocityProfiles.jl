@@ -1,5 +1,5 @@
 #=
-# Velocity profiles
+# Example: Plotting velocity profiles
 In this notebook, we will discuss a useful way to visualize a flow in fluid
 mechanics: the **velocity profile**.
 =#
