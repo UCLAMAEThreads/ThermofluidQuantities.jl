@@ -1,5 +1,8 @@
 using Documenter, ThermofluidQuantities
 
+#ENV["GKSwstype"] = "nul" # removes GKS warnings during plotting
+ENV["GKSwstype"] = "100" # removes GKS warnings during plotting
+
 makedocs(
     sitename = "ThermofluidQuantities.jl",
     doctest = true,
