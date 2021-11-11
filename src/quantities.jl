@@ -86,6 +86,7 @@ the list above of QtyType
 @dimvar Height                 LengthType
 @dimvar Depth                  LengthType
 @dimvar Volume                 VolumeType
+@dimvar RoughnessHeight        LengthType
 
 
 # Non-dimensional variables
@@ -106,3 +107,4 @@ the list above of QtyType
 @nondimvar DensityRatio
 @nondimvar VelocityRatio
 @nondimvar AreaRatio
+@nondimvar RoughnessRatio
