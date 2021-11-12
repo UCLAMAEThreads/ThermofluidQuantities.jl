@@ -1,7 +1,7 @@
 module ThermofluidQuantities
 
 import Base:+,*,-,/,^,>,<,>=,<=,==,isapprox
-import Base: exp, exp10, exp2, expm1, log, log10, log1p, log2
+import Base: exp, exp10, exp2, expm1, log, log10, log1p, log2, sqrt
 import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh,
              sinpi, cospi, sinc, cosc, cis
 
@@ -33,6 +33,8 @@ import Base: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, at
   include("liquids.jl")
   include("gasdefs.jl")
   include("liquiddefs.jl")
+  include("frictionfactor.jl")
+
 
   include("plot_recipes.jl")
 

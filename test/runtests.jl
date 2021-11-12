@@ -13,6 +13,7 @@ litdir = "./literate"
 
 if GROUP == "All" || GROUP == "Basics"
     include("macros.jl")
+    include("frictionfactor.jl")
 end
 
 if GROUP == "All" || GROUP == "Notebooks"

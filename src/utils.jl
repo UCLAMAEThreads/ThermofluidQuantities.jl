@@ -116,6 +116,11 @@ for op in (:exp, :exp10, :exp2, :expm1, :log, :log10, :log1p, :log2)
     @eval ($op)(s::DimensionlessPhysicalQuantity) = ($op)(s.val)
 end
 
+for op in (:sqrt,)
+    @eval ($op)(s::PhysicalQuantity) = ($op)(s.val)
+end
+
+
 
 function displayedunits() end
 function ushow() end
